@@ -126,6 +126,7 @@ public class VaadintestUI extends UI {
 		layout.addComponent(output);
 		layout.addComponent(start);
 		layout.addComponent(test);
+		layout.addComponent(error);
 	}
 
 }
