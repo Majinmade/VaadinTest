@@ -74,8 +74,8 @@ public class VaadintestUI extends UI {
 		
 		final Button test = new Button("Test");
 		
-		//final File f = new File("/share/MD0_DATA/.qpkg/Tomcat/tomcat/logs/catalina.out");
-		final File f = new File("D:\\tmp\\test.txt");
+		final File f = new File("/share/MD0_DATA/.qpkg/Tomcat/tomcat/logs/catalina.out");
+		//final File f = new File("D:\\tmp\\test.txt");
 		
 		final Runnable runnable = new Runnable() {
 
