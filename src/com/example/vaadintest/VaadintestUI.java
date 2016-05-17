@@ -70,7 +70,7 @@ public class VaadintestUI extends UI {
 		error.setSizeFull();
 		error.setReadOnly(true);
 
-		final Button start = new Button("Stop");
+		final Button start = new Button("Start");
 		
 		final Button test = new Button("Test");
 		
@@ -102,12 +102,11 @@ public class VaadintestUI extends UI {
 			}
 		};
 		
-		scheduledFuture = timer.scheduleAtFixedRate(runnable, 1, 1, TimeUnit.SECONDS);
-
 		start.addClickListener(new Button.ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				if (scheduledFuture == null || scheduledFuture.isCancelled()) {
+					scheduledFuture = timer.scheduleAtFixedRate(runnable, 1, 1, TimeUnit.SECONDS);
 					start.setCaption("Stop");
 				} else {
 					start.setCaption("Start");
