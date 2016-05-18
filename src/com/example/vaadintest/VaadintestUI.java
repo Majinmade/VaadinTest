@@ -74,8 +74,8 @@ public class VaadintestUI extends UI {
 		
 		final Button test = new Button("Test");
 		
-		final File f = new File("/share/MD0_DATA/.qpkg/Tomcat/tomcat/logs/catalina.out");
-		//final File f = new File("D:\\tmp\\test.txt");
+		//final File f = new File("/share/MD0_DATA/.qpkg/Tomcat/tomcat/logs/catalina.out");
+		final File f = new File("D:\\tmp\\test.txt");
 		
 		final Runnable runnable = new Runnable() {
 
@@ -96,7 +96,9 @@ public class VaadintestUI extends UI {
 					output.setReadOnly(true);
 					output.setSelectionRange(output.getValue().length()-1, 1);
 				} catch (IOException e) {
+					error.setReadOnly(false);
 					error.setValue(e.getMessage());
+					error.setReadOnly(true);
 				}
 
 			}
