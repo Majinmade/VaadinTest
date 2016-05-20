@@ -16,5 +16,10 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Martin/.ivy2/cache/com.vaadin/vaadin-server/jars/vaadin-server-7.6.6.jar" rootpath="C:/Users/Martin/.ivy2/cache/com.vaadin/vaadin-server/sources/vaadin-server-7.6.6-sources.jar" sourcepath="C:/Users/Martin/.ivy2/cache/com.vaadin/vaadin-server/sources/vaadin-server-7.6.6-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/Martin/.ivy2/cache/com.vaadin/vaadin-server/javadocs/vaadin-server-7.6.6-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
