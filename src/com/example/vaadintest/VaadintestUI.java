@@ -51,7 +51,7 @@ public class VaadintestUI extends UI {
 	private String outString;
 
 	private boolean follow = true;
-	
+
 	private File f;
 
 	private final static Logger logger = Logger.getLogger(VaadintestUI.class.getName());
@@ -68,29 +68,29 @@ public class VaadintestUI extends UI {
 		layout.setHeight(100, Unit.PERCENTAGE);
 		layout.setWidth(100, Unit.PERCENTAGE);
 		setContent(layout);
-		
+
 		setPollInterval(100);
 
 		final TextArea output = new TextArea();
 		output.setSizeFull();
 		output.setReadOnly(true);
-		
+
 		final TextArea error = new TextArea();
 		error.setSizeFull();
 		error.setReadOnly(true);
 
 		final Button start = new Button("Start");
-		
+
 		final Button test = new Button("Test");
-		
+
 		final Button followButton = new Button("Stop Follow");
-		
-		if(getUI().getPage().getLocation().getHost().contains("localhost")) {
+
+		if (getUI().getPage().getLocation().getHost().contains("localhost")) {
 			f = new File("D:\\tmp\\test.txt");
 		} else {
-			f = new File("/share/MD0_DATA/.qpkg/Tomcat/tomcat/logs/catalina.out");
+			f = new File("/share/Qmisc/Wildfly/standalone/log/server.log");
 		}
-		
+
 		final Runnable runnable = new Runnable() {
 
 			@Override
@@ -101,24 +101,28 @@ public class VaadintestUI extends UI {
 					Stream<String> lines = fr.lines();
 					lines.skip(index).forEach(line -> {
 						outString += line + "\n";
-						index ++;
+						index++;
 					});
 					fr.close();
-					output.setReadOnly(false);
-					output.setValue(outString);
-					output.setReadOnly(true);
-					if(follow) {
-						output.setSelectionRange(output.getValue().length()-1, 1);
+					synchronized (VaadintestUI.this) {
+						output.setReadOnly(false);
+						output.setValue(outString);
+						output.setReadOnly(true);
+						if (follow) {
+							output.setSelectionRange(output.getValue().length() - 1, 1);
+						}
 					}
 				} catch (Exception e) {
-					error.setReadOnly(false);
-					error.setValue(e.getMessage());
-					error.setReadOnly(true);
+					synchronized (VaadintestUI.this) {
+						error.setReadOnly(false);
+						error.setValue(e.getMessage());
+						error.setReadOnly(true);
+					}
 				}
 
 			}
 		};
-		
+
 		start.addClickListener(listener -> {
 			if (scheduledFuture == null || scheduledFuture.isCancelled()) {
 				scheduledFuture = timer.scheduleAtFixedRate(runnable, 1, 1, TimeUnit.SECONDS);
@@ -128,13 +132,13 @@ public class VaadintestUI extends UI {
 				scheduledFuture.cancel(true);
 			}
 		});
-		
+
 		test.addClickListener(listener -> {
 			logger.log(Level.WARNING, "Test");
 		});
-		
-		followButton.addClickListener(listener-> {
-			if(follow) {
+
+		followButton.addClickListener(listener -> {
+			if (follow) {
 				followButton.setCaption("Follow");
 			} else {
 				followButton.setCaption("Stop Follow");
@@ -142,11 +146,11 @@ public class VaadintestUI extends UI {
 			follow = !follow;
 		});
 
-		layout.addComponent(output,0,0,2,0);
-		layout.addComponent(start,0,1);
-		layout.addComponent(test,1,1);
-		layout.addComponent(followButton,2,1);
-		layout.addComponent(error,0,2,2,2);
+		layout.addComponent(output, 0, 0, 2, 0);
+		layout.addComponent(start, 0, 1);
+		layout.addComponent(test, 1, 1);
+		layout.addComponent(followButton, 2, 1);
+		layout.addComponent(error, 0, 2, 2, 2);
 	}
 
 }
